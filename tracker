@@ -1,0 +1,131 @@
+
+gram will pull up habit tracker
+// also recreate this in Python and Maybe pair with R
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+// struct to store application info
+struct Tracked {
+    string month; // store month and day as separate
+    string day;
+    string year;
+    string work;
+    string moveRing;
+    string exerciseRing;
+    string standRing;
+    string journal;
+    string journalFood;
+    string sleepQuality;
+};
+
+// declare array
+Tracked habit[1000];
+
+// declare protoypes for menu options
+    // select data
+
+    // print data
+    void printData(Tracked habit[1000], int count);
+
+
+int main(){
+    string path, dummy;
+    char bye, trash;
+    ifstream input_file;
+    
+    // Welcome message
+    cout << "☆☆☆ Welcome to Jasmine's Habit Tracker! ☆☆☆" << endl;
+    cout << "Please select an option from the menu:  " << endl;
+    
+    input_file.open("/Users/Jasmine/Desktop/HabitTracker/habit/HabitTracker2020_Responses.csv");
+    
+    // header formatting
+    // top of header
+    for (int i = 0; i < 134; i++) {
+        cout << "=";
+    }
+    cout << endl;
+    
+    // headers
+    cout << left
+    << "|| " << setw(10) << "Date"
+    << "|| " << setw(10) << "Work?"
+    << "|| " << setw(15) << "Move Ring"
+    << "|| " << setw(15) << "Exercise Min"
+    << "|| " << setw(10) << "Stand Ring "
+    << "|| " << setw(10) << "Journal?"
+    << "|| " << setw(10) << "Food Log"
+    << "|| " << setw(26) << "Sleep quality?"
+    << " ||" << endl;
+    
+    // bottom of header
+    for (int i = 0; i < 134; i++) {
+           cout << "=";
+       }
+    cout << endl;
+    
+// read data into structure Tracked
+    
+    // ignore headers of file
+    input_file.ignore(1000, '\n');
+    
+    // read until eof
+    int i = 0;
+    while(!input_file.eof()) {
+        
+        // retrieve month
+        getline(input_file, habit[i].month, '/');
+
+        // retrieve date
+        getline(input_file, habit[i].day, '/');
+        
+        // retrieve year
+        getline(input_file, habit[i].year, ' ');
+        
+        // skip data entry time
+        input_file.ignore(1000, ',');
+        
+        // retrieve work
+        getline(input_file, habit[i].work, ',');
+        
+        // retrieve move
+        getline(input_file, habit[i].moveRing, ',');
+        
+        // retrieve exercise ring
+        getline(input_file, habit[i].exerciseRing, ',');
+        
+        // retrieve stand ring
+        getline(input_file, habit[i].standRing, ',');
+        
+        // retrieve journal
+        getline(input_file, habit[i].journal, ',');
+        
+        // retreive journal log
+        getline(input_file, habit[i].journalFood, ',');
+        
+        // retrieve sleep quality
+        getline(input_file, habit[i].sleepQuality, ',');
+
+        cout << "Please select an option from the menu: " ;
+        // make this a separate function to call too
+         // format data output
+        cout << left
+        << "|| " <<  habit[i].month << "/" << habit[i].day << "/" << habit[i].year
+        << "|| " << setw(10) << habit[i].work
+        << "|| " << setw(15) << habit[i].moveRing
+        << "|| " << setw(15) << habit[i].exerciseRing
+        << "|| " << setw(11) << habit[i].standRing
+        << "|| " << setw(10) << habit[i].journal
+        << "|| " << setw(10) << habit[i].journalFood
+        << "|| " << setw(26) << habit[i].sleepQuality
+        << "||";
+        
+    }
+    
+    return 0;
+    
+}
